@@ -1,0 +1,81 @@
+﻿@model IEnumerable<MyLogbook.Models.Concert>
+
+@{
+    ViewBag.Title = "Mes concerts";
+}
+
+<h2>Mes concerts</h2>
+
+<p>
+    @Html.ActionLink("Nouveau", "Create")
+    @using (Html.BeginForm())
+    {
+    <p>
+        <div class="form-inline">
+            @Html.Label("Salle", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("SearchHall", null, "Tous", htmlAttributes: new { @class = "form-control" })
+            @Html.Label("Artiste", htmlAttributes: new { @class = "control-label" })
+            @Html.TextBox("SearchArtist", null, htmlAttributes: new { @class = "form-control" })
+            <input type="submit" value="Filtrer" class="btn btn-default" />
+        </div>
+    </p>
+    }
+    </p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Artist)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.With)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        @*
+    <th>
+        @Html.DisplayNameFor(model => model.UserId)
+    </th>
+        *@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Artist)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.With)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hall)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        @*
+    <td>
+        @Html.DisplayFor(modelItem => item.UserId)
+    </td>
+        *@
+        <td>
+            @Html.ActionLink("Modifier", "Edit", new { id=item.Id }) |
+            @*
+    @Html.ActionLink("Détails", "Details", new { id=item.Id }) |
+            *@
+            @Html.ActionLink("Supprimer", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

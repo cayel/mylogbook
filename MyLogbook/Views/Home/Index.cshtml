@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Accueil";
+}
+
+<div class="jumbotron">
+    <h1>MyLogbook</h1>
+    <p class="lead">Mylogbook est une application qui permet d'enregistrer tout ce que vous lisez, écoutez, regardez.</p>
+    @*
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    *@
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Les livres</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    MyLogBook vous permet de consigner tous les livres que vous lisez.
+                </p>
+                <br />
+                <p>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a class="btn btn-default" href="~/Books">Mes lectures &raquo;</a>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Les films</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    MyLogBook vous permet vous souvenir de tous les films que vous regardez, à la TV ou au cinéma.
+                </p>
+                <br />
+                <p>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a class="btn btn-default" href="~/Movies">Mes films &raquo;</a>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Les concerts</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    Encore mieux, qu'écouter un disque : aller voir les artistes sur scènes. MyLogbook est là pour se rappeler de ces bons moments.  .
+                </p>
+                <p>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a class="btn btn-default" href="~/Concerts">Mes concerts &raquo;</a>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+@*
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+*@
+</div>

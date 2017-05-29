@@ -1,0 +1,72 @@
+﻿@model MyLogbook.Models.Concert
+
+@{
+    ViewBag.Title = "Suppression";
+}
+
+<h2>Supprimer</h2>
+
+<h3>Voulez-vous supprimer ce concert ?</h3>
+<div>
+    <h4>Concert</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Artist)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artist)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.With)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.With)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hall)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hall)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        @*
+    <dt>
+        @Html.DisplayNameFor(model => model.UserId)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.UserId)
+    </dd>
+        *@
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-default" /> |
+            @Html.ActionLink("Retour à la liste", "Index")
+        </div>
+    }
+</div>
