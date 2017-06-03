@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MyLogbook.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace MyLogbook.Controllers
 {
@@ -16,8 +17,20 @@ namespace MyLogbook.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Books
-        public ActionResult Index(string searchBook)
+        public ActionResult Index(string searchBook, string sortOrder, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+
+            if (searchBook != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchBook = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchBook;
+
             ApplicationDbContext context = new ApplicationDbContext();
             string userid = User.Identity.GetUserId();
 
@@ -30,7 +43,10 @@ namespace MyLogbook.Controllers
                     books = books.Where(s => s.Title.ToLower().Contains(searchBook.ToLower()) || s.Writer.ToLower().Contains(searchBook.ToLower()));
                 }
                 books = books.OrderByDescending(s => s.Date);
-                return View(books);
+                
+                int pageSize = 15;
+                int pageNumber = (page ?? 1);
+                return View(books.ToPagedList(pageNumber, pageSize));
             }
             else return View("Error");
         }
