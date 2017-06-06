@@ -35,6 +35,12 @@ namespace MyLogbook.Controllers
             string userid = User.Identity.GetUserId();
 
             IEnumerable<Book> books = new List<Book>();
+
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.WriterSortParm = String.IsNullOrEmpty(sortOrder) ? "writer_desc" : "";
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "rating_desc" : "";
+
             if (!string.IsNullOrEmpty(userid))
             {
                 books = context.Books.Where(x => x.UserId == userid);
@@ -42,7 +48,24 @@ namespace MyLogbook.Controllers
                 {
                     books = books.Where(s => s.Title.ToLower().Contains(searchBook.ToLower()) || s.Writer.ToLower().Contains(searchBook.ToLower()));
                 }
-                books = books.OrderByDescending(s => s.Date);
+                switch (sortOrder)
+                {
+                    case "title_desc":
+                        books = books.OrderByDescending(s => s.Title);
+                        break;
+                    case "writer_desc":
+                        books = books.OrderByDescending(s => s.Writer);
+                        break;
+                    case "date_desc":
+                        books = books.OrderByDescending(s => s.Date);
+                        break;
+                    case "rating_desc":
+                        books = books.OrderByDescending(s => s.Rating);
+                        break;
+                    default:
+                        books = books.OrderByDescending(s => s.Date);
+                        break;
+                }
                 
                 int pageSize = 15;
                 int pageNumber = (page ?? 1);
