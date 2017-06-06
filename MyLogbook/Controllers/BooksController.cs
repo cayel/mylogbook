@@ -36,8 +36,8 @@ namespace MyLogbook.Controllers
 
             IEnumerable<Book> books = new List<Book>();
 
-            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            ViewBag.WriterSortParm = String.IsNullOrEmpty(sortOrder) ? "writer_desc" : "";
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_asc" : "";
+            ViewBag.WriterSortParm = String.IsNullOrEmpty(sortOrder) ? "writer_asc" : "";
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "rating_desc" : "";
 
@@ -50,11 +50,11 @@ namespace MyLogbook.Controllers
                 }
                 switch (sortOrder)
                 {
-                    case "title_desc":
-                        books = books.OrderByDescending(s => s.Title);
+                    case "title_asc":
+                        books = books.OrderBy(s => s.Title);
                         break;
-                    case "writer_desc":
-                        books = books.OrderByDescending(s => s.Writer);
+                    case "writer_asc":
+                        books = books.OrderBy(s => s.Writer);
                         break;
                     case "date_desc":
                         books = books.OrderByDescending(s => s.Date);
