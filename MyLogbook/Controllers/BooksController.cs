@@ -36,10 +36,10 @@ namespace MyLogbook.Controllers
 
             IEnumerable<Book> books = new List<Book>();
 
-            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_asc" : "";
-            ViewBag.WriterSortParm = String.IsNullOrEmpty(sortOrder) ? "writer_asc" : "";
-            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
-            ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "rating_desc" : "";
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_asc" : "";            
+            ViewBag.TitleSortParm = sortOrder == "Title" ? "title_desc" : "Title";
+            ViewBag.WriterSortParm = sortOrder == "Writer" ? "writer_desc" : "Writer";
+            ViewBag.RatingSortParm = sortOrder == "Rating" ? "rating_asc" : "Rating";
 
             if (!string.IsNullOrEmpty(userid))
             {
@@ -50,18 +50,28 @@ namespace MyLogbook.Controllers
                 }
                 switch (sortOrder)
                 {
-                    case "title_asc":
+                    case "title_desc":
+                        books = books.OrderByDescending(s => s.Title);
+                        break;
+                    case "Title":
                         books = books.OrderBy(s => s.Title);
                         break;
-                    case "writer_asc":
+                    case "writer_desc":
+                        books = books.OrderByDescending(s => s.Writer);
+                        break;
+                    case "Writer":
                         books = books.OrderBy(s => s.Writer);
                         break;
-                    case "date_desc":
-                        books = books.OrderByDescending(s => s.Date);
+                    case "date_asc":
+                        books = books.OrderBy(s => s.Date);
                         break;
-                    case "rating_desc":
+                    case "rating_asc":
+                        books = books.OrderBy(s => s.Rating);
+                        break;
+                    case "Rating":
                         books = books.OrderByDescending(s => s.Rating);
                         break;
+
                     default:
                         books = books.OrderByDescending(s => s.Date);
                         break;
