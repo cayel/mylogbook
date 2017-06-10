@@ -12,10 +12,41 @@ namespace MyLogbook.Controllers
 {
     public class DashboardController : Controller
     {
+        ApplicationDbContext context = new ApplicationDbContext();
+        private dynamic getUserBooksGroupByWriter (string userid, int countWriters)
+        {
+            var dataWriters = context.Books.Where(x => x.UserId == userid).GroupBy(t => new { Writer = t.Writer })
+                .Select(g => new
+                {
+                    Count = g.Count(),
+                    Average = g.Average(p => p.Rating),
+                    Writer = g.Key.Writer
+                }).OrderByDescending(x => x.Average).Take(countWriters).ToList();
+            return dataWriters;
+        }
+        private List<BestWriter> getBestWritersFromList(dynamic listBestWriters)
+        {
+            List<BestWriter> bestWriters = new List<BestWriter>();
+            foreach (var item in listBestWriters)
+            {
+                bestWriters.Add(new BestWriter { Writer = item.Writer, Count = item.Count, Average = item.Average });
+            }
+            return bestWriters;
+        }
+        public List<BestWriter> GetBestWriters()
+        {           
+            string userid = User.Identity.GetUserId();
+            var dataWriters = getUserBooksGroupByWriter(userid,5);
+            List<BestWriter> bestWriters = new List<BestWriter>();
+            bestWriters = getBestWritersFromList(dataWriters);            
+            return (bestWriters);
+        }
+
         // GET: Dashboard
         public ActionResult Index()
         {
-            return View();
+            List<BestWriter> bestWriters = GetBestWriters();
+            return View(bestWriters);
         }
         public ActionResult DrawGraphBook()
         {
