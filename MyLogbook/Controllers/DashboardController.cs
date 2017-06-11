@@ -34,10 +34,9 @@ namespace MyLogbook.Controllers
             }
             return bestWriters;
         }
-        public List<BestWriter> GetBestWriters()
+        public List<BestWriter> GetBestWriters(string userId)
         {           
-            string userid = User.Identity.GetUserId();
-            var dataWriters = getUserBooksGroupByWriter(userid,5);
+            var dataWriters = getUserBooksGroupByWriter(userId,5);
             List<BestWriter> bestWriters = new List<BestWriter>();
             bestWriters = getBestWritersFromList(dataWriters);            
             return (bestWriters);
@@ -46,7 +45,9 @@ namespace MyLogbook.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-            List<BestWriter> bestWriters = GetBestWriters();
+            string userId = User.Identity.GetUserId();
+
+            List<BestWriter> bestWriters = GetBestWriters(userId);
             return View(bestWriters);
         }
         public ActionResult DrawGraphBook()
