@@ -16,6 +16,7 @@ namespace MyLogbook.Controllers
         private dynamic getUserBooksGroupByWriter (string userid, int countWriters)
         {
             var dataWriters = context.Books.Where(x => x.UserId == userid).GroupBy(t => new { Writer = t.Writer })
+                .Where(p => p.Count() > 1)
                 .Select(g => new
                 {
                     Count = g.Count(),
