@@ -6,48 +6,22 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace MyLogbook.Controllers
 {
     public class DashboardController : Controller
     {
-        ApplicationDbContext context = new ApplicationDbContext();
-        private dynamic getUserBooksGroupByWriter (string userid, int countWriters)
-        {
-            var dataWriters = context.Books.Where(x => x.UserId == userid).GroupBy(t => new { Writer = t.Writer })
-                .Where(p => p.Count() > 1)
-                .Select(g => new
-                {
-                    Count = g.Count(),
-                    Average = g.Average(p => p.Rating),
-                    Writer = g.Key.Writer
-                }).OrderByDescending(x => x.Average).Take(countWriters).ToList();
-            return dataWriters;
-        }
-        private List<BestWriter> getBestWritersFromList(dynamic listBestWriters)
-        {
-            List<BestWriter> bestWriters = new List<BestWriter>();
-            foreach (var item in listBestWriters)
-            {
-                bestWriters.Add(new BestWriter { Writer = item.Writer, Count = item.Count, Average = item.Average });
-            }
-            return bestWriters;
-        }
-        public List<BestWriter> GetBestWriters(string userId)
-        {           
-            var dataWriters = getUserBooksGroupByWriter(userId,5);
-            List<BestWriter> bestWriters = new List<BestWriter>();
-            bestWriters = getBestWritersFromList(dataWriters);            
-            return (bestWriters);
-        }
-
         // GET: Dashboard
         public ActionResult Index()
-        {
+        {                        
             string userId = User.Identity.GetUserId();
-
-            List<BestWriter> bestWriters = GetBestWriters(userId);
+            List<BestWriter> bestWriters;
+            using (IDal dal = new Dal())
+            {
+                bestWriters = dal.GetBestWriters(userId);
+            }
             return View(bestWriters);
         }
         public ActionResult DrawGraphBook()

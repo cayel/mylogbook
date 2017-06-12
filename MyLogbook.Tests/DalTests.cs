@@ -13,12 +13,8 @@ namespace MyLogbook.Tests
         {
             using (IDal dal = new Dal())
             {
-                dal.CreateNewBook("Le Titre de mon livre", "Jean Claude", Convert.ToDateTime("12/01/2017"), 8);
-                List<Book> books = dal.GetAllBooks();
-                Assert.IsNotNull(books);
-                Assert.AreEqual(1, books.Count);
-                Assert.AreEqual("Le Titre de mon livre", books[0].Title);  
-                Assert.AreEqual(8, books[0].Rating);
+                List<BestWriter> bestWriters = dal.GetBestWriters("");
+                Assert.IsNull(bestWriters);
             }
         }
     }

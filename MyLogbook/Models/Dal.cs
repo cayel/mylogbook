@@ -1,39 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
 namespace MyLogbook.Models
 {
-    public class BestWriter
-    {
-        public string Writer { get; set; }
-        public int Count { get; set; }
-        [DisplayFormat(DataFormatString = "{0:F2}")]
-        public double Average { get; set; }
-    }
     public interface IDal : IDisposable
     {
         List<Book> GetAllBooks();
-        void CreateNewBook(string title, string writer, DateTime date, int rating);
+        List<BestWriter> GetBestWriters(string userId);
     }
     public class Dal : IDal
     {
         private ApplicationDbContext context;
         public Dal()
         {
-            ApplicationDbContext context = new ApplicationDbContext();
+            context = new ApplicationDbContext();
         }
         public List<Book> GetAllBooks()
         {
             return context.Books.ToList();
-        }        
-        public void CreateNewBook(string title, string writer, DateTime date, int rating)
-        {
-            context.Books.Add(new Book { Title = title, Writer = writer, Date = date, Rating = rating });
-            context.SaveChanges();
         }
+        private dynamic getUserBooksGroupByWriter(string userid, int countWriters)
+        {
+            var dataWriters = context.Books.Where(x => x.UserId == userid).GroupBy(t => new { Writer = t.Writer })
+                .Where(p => p.Count() > 1)
+                .Select(g => new
+                {
+                    Count = g.Count(),
+                    Average = g.Average(p => p.Rating),
+                    Writer = g.Key.Writer
+                }).OrderByDescending(x => x.Average).Take(countWriters).ToList();
+            return dataWriters;
+        }
+        private List<BestWriter> getBestWritersFromList(dynamic listBestWriters)
+        {
+            List<BestWriter> bestWriters = new List<BestWriter>();
+            foreach (var item in listBestWriters)
+            {
+                bestWriters.Add(new BestWriter { Writer = item.Writer, Count = item.Count, Average = item.Average });
+            }
+            return bestWriters;
+        }
+        public List<BestWriter> GetBestWriters(string userId)
+        {
+            var dataWriters = getUserBooksGroupByWriter(userId, 5);
+            List<BestWriter> bestWriters = new List<BestWriter>();
+            bestWriters = getBestWritersFromList(dataWriters);
+            return (bestWriters);
+        }
+
         public void Dispose()
         {
             context.Dispose();
