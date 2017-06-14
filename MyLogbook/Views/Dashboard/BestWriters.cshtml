@@ -1,0 +1,35 @@
+﻿@model MyLogbook.ViewModels.FavoriteViewModel
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Mes auteurs favoris</div>
+
+        <!-- Table -->
+        <table class="table">
+            <tr>
+                <th>
+                    Auteur
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Moyenne
+                </th>
+
+                @foreach (var item in Model.BestWriters)
+                {
+                <tr>
+                    <td>
+                        @item.Writer
+                    </td>
+                    <td align="right">
+                        @item.Count
+                    </td>
+                    <td align="right">
+                        @Html.DisplayFor(modelItem => item.Average)
+                    </td>
+                </tr>
+                }
+            </table>
+        </div>

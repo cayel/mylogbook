@@ -11,6 +11,7 @@ namespace MyLogbook.Models
     {
         List<Book> GetAllBooks();
         List<BestWriter> GetBestWriters(string userId);
+        List<BestDirector> GetBestDirectors(string userId);
     }
     public class Dal : IDal
     {
@@ -50,6 +51,34 @@ namespace MyLogbook.Models
             List<BestWriter> bestWriters = new List<BestWriter>();
             bestWriters = getBestWritersFromList(dataWriters);
             return (bestWriters);
+        }
+        private dynamic getUserMoviesGroupByDirector(string userid, int countDirectors)
+        {
+            var dataDirectors = context.Movies.Where(x => x.UserId == userid).GroupBy(t => new { Director = t.Director })
+                .Where(p => p.Count() > 1)
+                .Select(g => new
+                {
+                    Count = g.Count(),
+                    Average = g.Average(p => p.Rating),
+                    Director = g.Key.Director
+                }).OrderByDescending(x => x.Average).Take(countDirectors).ToList();
+            return dataDirectors;
+        }
+        private List<BestDirector> getBestDirectorsFromList(dynamic listBestDirectors)
+        {
+            List<BestDirector> bestDirectors = new List<BestDirector>();
+            foreach (var item in listBestDirectors)
+            {
+                bestDirectors.Add(new BestDirector { Director = item.Director, Count = item.Count, Average = item.Average });
+            }
+            return bestDirectors;
+        }
+        public List<BestDirector> GetBestDirectors(string userId)
+        {
+            var dataDirectors = getUserMoviesGroupByDirector(userId, 5);
+            List<BestDirector> bestDirectors = new List<BestDirector>();
+            bestDirectors = getBestDirectorsFromList(dataDirectors);
+            return (bestDirectors);
         }
 
         public void Dispose()

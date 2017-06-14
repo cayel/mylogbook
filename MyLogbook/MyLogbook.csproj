@@ -198,7 +198,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\BddContext.cs" />
+    <Compile Include="Models\BestDirector.cs" />
     <Compile Include="Models\BestWriter.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Concert.cs" />
@@ -208,6 +208,7 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\FavoriteViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -300,9 +301,12 @@
     <Content Include="Views\Concerts\Details.cshtml" />
     <Content Include="Views\Concerts\Edit.cshtml" />
     <Content Include="Views\Concerts\Index.cshtml" />
+    <Content Include="Views\Dashboard\BestWriters.cshtml" />
+    <Content Include="Views\Dashboard\BestDirectors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Favorite\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -7,6 +7,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.ComponentModel.DataAnnotations;
+using MyLogbook.ViewModels;
 
 
 namespace MyLogbook.Controllers
@@ -15,14 +16,15 @@ namespace MyLogbook.Controllers
     {
         // GET: Dashboard
         public ActionResult Index()
-        {                        
+        {
             string userId = User.Identity.GetUserId();
-            List<BestWriter> bestWriters;
-            using (IDal dal = new Dal())
-            {
-                bestWriters = dal.GetBestWriters(userId);
-            }
-            return View(bestWriters);
+            IDal dal = new Dal();
+            FavoriteViewModel vm = new FavoriteViewModel 
+            { 
+                BestWriters = dal.GetBestWriters(userId),
+                BestDirectors = dal.GetBestDirectors(userId)
+            };
+            return View(vm);
         }
         public ActionResult DrawGraphBook()
         {

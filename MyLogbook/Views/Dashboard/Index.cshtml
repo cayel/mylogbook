@@ -1,4 +1,4 @@
-﻿@model List<MyLogbook.Models.BestWriter>
+﻿@model MyLogbook.ViewModels.FavoriteViewModel
 @{
     ViewBag.Title = "Tableau de bord";
 }
@@ -7,113 +7,27 @@
 <br />
 <div class="row">
     <div class="col-md-4">
-        <div class="panel panel-default">
-            <!-- Default panel contents -->
-            <div class="panel-heading">Mes auteurs favoris</div>
-
-            <!-- Table -->
-            <table class="table">
-                <tr>
-                    <th>
-                        Auteur
-                    </th>
-                    <th>
-                        Nombre
-                    </th>
-                    <th>
-                        Moyenne
-                    </th>
-
-                    @foreach (var item in Model)
-                    {
-                    <tr>
-                        <td>
-                            @item.Writer
-                        </td>
-                        <td align="right">
-                            @item.Count
-                        </td>
-                        <td align="right">
-                            @Html.DisplayFor(modelItem => item.Average)
-                        </td>
-                    </tr>
-                    }
-                </table>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <img src="@Url.Action("DrawGraphBook", new { })" />
-        </div>
+        @Html.Partial("BestWriters", Model)
     </div>
-    <br />
-    <div class="row">
-        <div class="col-md-8">
-            <img src="@Url.Action("DrawGraphMovie", new { })" />
-        </div>
-        <div class="col-md-4">
-            @*
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Mes films favoris</div>
+    <div class="col-md-8">
+        <img src="@Url.Action("DrawGraphBook", new { })" />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-8">
+        <img src="@Url.Action("DrawGraphMovie", new { })" />
+    </div>
+    <div class="col-md-4">
+        @Html.Partial("BestDirectors", Model)
+    </div>
+</div>
 
-        <!-- Table -->
-        <table class="table">
-            <tr>
-                <th>
-                    Réalisateur
-                </th>
-                <th>
-                    Nombre
-                </th>
-                <th>
-                    Moyenne
-                </th>
-
-                @foreach (var item in Model)
-                {
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td align="right"></td>
-                </tr>
-                }
-            </table>
-        </div>
-            *@
-            </div>
-        </div>
-
-        <br />
-        <div class="row">
-            <div class="col-md-4">
-                @*
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Mes concerts favoris</div>
-
-        <!-- Table -->
-        <table class="table">
-            <tr>
-                <th>
-                </th>
-                <th>
-                </th>
-                <th>
-                </th>
-
-                @foreach (var item in Model)
-                {
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td align="right"></td>
-                </tr>
-                }
-            </table>
-        </div>
-                *@
-                </div>
-                <div class="col-md-8">
-                    <img src="@Url.Action("DrawGraphConcert", new { })" />
-                </div>
-            </div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-8">
+        <img src="@Url.Action("DrawGraphConcert", new { })" />
+    </div>
+</div>
