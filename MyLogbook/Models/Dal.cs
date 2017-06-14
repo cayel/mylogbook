@@ -12,6 +12,7 @@ namespace MyLogbook.Models
         List<Book> GetAllBooks();
         List<BestWriter> GetBestWriters(string userId);
         List<BestDirector> GetBestDirectors(string userId);
+        List<FavoriteConcertHall> GetFavoriteConcertHalls(string userId);
     }
     public class Dal : IDal
     {
@@ -80,7 +81,34 @@ namespace MyLogbook.Models
             bestDirectors = getBestDirectorsFromList(dataDirectors);
             return (bestDirectors);
         }
-
+        private dynamic getUserConcertGroupByConcertHall(string userid, int countConcertHall)
+        {
+            var dataConcertHalls = context.Concerts.Where(x => x.UserId == userid).GroupBy(t => new { ConcertHall = t.Hall })
+                .Where(p => p.Count() > 1)
+                .Select(g => new
+                {
+                    Count = g.Count(),
+                    Average = g.Average(p => p.Rating),
+                    ConcertHall = g.Key.ConcertHall
+                }).OrderByDescending(x => x.Count).Take(countConcertHall).ToList();
+            return dataConcertHalls;
+        }
+        private List<FavoriteConcertHall> getFavoriteConcertHallFromList(dynamic listFavoriteConcertHalls)
+        {
+            List<FavoriteConcertHall> favoriteConcertHalls = new List<FavoriteConcertHall>();
+            foreach (var item in listFavoriteConcertHalls)
+            {
+                favoriteConcertHalls.Add(new FavoriteConcertHall { ConcertHall = item.ConcertHall, Count = item.Count, Average = item.Average });
+            }
+            return favoriteConcertHalls;
+        }
+        public List<FavoriteConcertHall> GetFavoriteConcertHalls(string userId)
+        {
+            var dataConcertHalls = getUserConcertGroupByConcertHall(userId, 5);
+            List<FavoriteConcertHall> favoriteConcertHalls = new List<FavoriteConcertHall>();
+            favoriteConcertHalls = getFavoriteConcertHallFromList(dataConcertHalls);
+            return (favoriteConcertHalls);
+        }
         public void Dispose()
         {
             context.Dispose();

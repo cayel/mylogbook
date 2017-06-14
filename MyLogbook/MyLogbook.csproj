@@ -198,6 +198,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FavoriteConcertHall.cs" />
     <Compile Include="Models\BestDirector.cs" />
     <Compile Include="Models\BestWriter.cs" />
     <Compile Include="Models\Book.cs" />
@@ -303,6 +304,7 @@
     <Content Include="Views\Concerts\Index.cshtml" />
     <Content Include="Views\Dashboard\BestWriters.cshtml" />
     <Content Include="Views\Dashboard\BestDirectors.cshtml" />
+    <Content Include="Views\Dashboard\FavoriteConcertHalls.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,7 +22,8 @@ namespace MyLogbook.Controllers
             FavoriteViewModel vm = new FavoriteViewModel 
             { 
                 BestWriters = dal.GetBestWriters(userId),
-                BestDirectors = dal.GetBestDirectors(userId)
+                BestDirectors = dal.GetBestDirectors(userId),
+                BestConcertHall = dal.GetFavoriteConcertHalls(userId)
             };
             return View(vm);
         }

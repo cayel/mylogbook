@@ -10,5 +10,6 @@ namespace MyLogbook.ViewModels
     {
         public List<BestWriter> BestWriters { get; set; }
         public List<BestDirector> BestDirectors { get; set; }
+        public List<FavoriteConcertHall> BestConcertHall { get; set;}
     }
 }

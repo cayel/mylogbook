@@ -1,0 +1,37 @@
+﻿@model MyLogbook.ViewModels.FavoriteViewModel
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Mes salles favorites</div>
+
+    <!-- Table -->
+    <table class="table">
+        <tr>
+            <th>
+                Salle
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Moyenne
+            </th>
+
+            @foreach (var item in Model.BestConcertHall)
+            {
+            <tr>
+                <td>
+                    @item.ConcertHall
+                </td>
+                <td align="right">
+                    @item.Count
+                </td>
+                <td align="right">
+                    @Html.DisplayFor(modelItem => item.Average)
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+
+
