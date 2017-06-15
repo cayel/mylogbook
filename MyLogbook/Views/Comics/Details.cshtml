@@ -1,0 +1,57 @@
+﻿@model MyLogbook.Models.Comic
+
+@{
+    ViewBag.Title = "Détails";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BD</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Scenarist)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Scenarist)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cartoonist)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cartoonist)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Retour à la liste", "Index")
+</p>

@@ -168,6 +168,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
+    <Compile Include="Controllers\ComicsController.cs" />
     <Compile Include="Controllers\ConcertsController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -196,8 +197,17 @@
     <Compile Include="Migrations\201705242140070_Concert.Designer.cs">
       <DependentUpon>201705242140070_Concert.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706151036388_Comic.cs" />
+    <Compile Include="Migrations\201706151036388_Comic.Designer.cs">
+      <DependentUpon>201706151036388_Comic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706151056314_Comic-not-required.cs" />
+    <Compile Include="Migrations\201706151056314_Comic-not-required.Designer.cs">
+      <DependentUpon>201706151056314_Comic-not-required.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Comic.cs" />
     <Compile Include="Models\FavoriteConcertHall.cs" />
     <Compile Include="Models\BestDirector.cs" />
     <Compile Include="Models\BestWriter.cs" />
@@ -305,6 +315,11 @@
     <Content Include="Views\Dashboard\BestWriters.cshtml" />
     <Content Include="Views\Dashboard\BestDirectors.cshtml" />
     <Content Include="Views\Dashboard\FavoriteConcertHalls.cshtml" />
+    <Content Include="Views\Comics\Create.cshtml" />
+    <Content Include="Views\Comics\Delete.cshtml" />
+    <Content Include="Views\Comics\Details.cshtml" />
+    <Content Include="Views\Comics\Edit.cshtml" />
+    <Content Include="Views\Comics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -332,6 +347,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705242140070_Concert.resx">
       <DependentUpon>201705242140070_Concert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706151036388_Comic.resx">
+      <DependentUpon>201706151036388_Comic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706151056314_Comic-not-required.resx">
+      <DependentUpon>201706151056314_Comic-not-required.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

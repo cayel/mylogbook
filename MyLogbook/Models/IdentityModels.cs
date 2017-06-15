@@ -35,5 +35,7 @@ namespace MyLogbook.Models
         public System.Data.Entity.DbSet<MyLogbook.Models.Movie> Movies { get; set; }
 
         public System.Data.Entity.DbSet<MyLogbook.Models.Concert> Concerts { get; set; }
+
+        public System.Data.Entity.DbSet<MyLogbook.Models.Comic> Comics { get; set; }
     }
 }
