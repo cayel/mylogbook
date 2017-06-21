@@ -1,0 +1,34 @@
+﻿
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <canvas id="TheChartConcerts"></canvas>
+</div>
+
+<script>
+    var ctxConcerts = document.getElementById("TheChartConcerts");
+    var TheChartConcerts = new Chart(ctxConcerts, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(ViewBag.YearListConcerts),
+            datasets: [{
+                label: '# concerts vus',
+                data:  @Html.Raw(ViewBag.CountListConcerts),
+                backgroundColor: 'rgba(181, 137, 0, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 0.2)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+
+

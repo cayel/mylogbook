@@ -9,14 +9,18 @@
     <div class="col-md-4">
         @Html.Partial("BestWriters", Model)
     </div>
-    <div class="col-md-8">
-        <img src="@Url.Action("DrawGraphBook", new { })" />
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-6">
+        @Html.Partial("BooksChart", Model)
     </div>
 </div>
 <br />
 <div class="row">
-    <div class="col-md-8">
-        <img src="@Url.Action("DrawGraphMovie", new { })" />
+    <div class="col-md-6">
+        @Html.Partial("MoviesChart", Model)
+    </div>
+    <div class="col-md-2">
     </div>
     <div class="col-md-4">
         @Html.Partial("BestDirectors", Model)
@@ -28,7 +32,11 @@
     <div class="col-md-4">
         @Html.Partial("FavoriteConcertHalls", Model)
     </div>
-    <div class="col-md-8">
-        <img src="@Url.Action("DrawGraphConcert", new { })" />
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-6">
+        @Html.Partial("ConcertsChart", Model)
     </div>
 </div>
+<br />
+

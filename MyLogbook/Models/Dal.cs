@@ -13,6 +13,9 @@ namespace MyLogbook.Models
         List<BestWriter> GetBestWriters(string userId);
         List<BestDirector> GetBestDirectors(string userId);
         List<FavoriteConcertHall> GetFavoriteConcertHalls(string userId);
+        HistoMedia GetUserHistoBooksCountPerYer(string userId);
+        HistoMedia GetUserHistoMoviesCountPerYer(string userId);
+        HistoMedia GetUserHistoConcertsCountPerYer(string userId);
     }
     public class Dal : IDal
     {
@@ -108,6 +111,69 @@ namespace MyLogbook.Models
             List<FavoriteConcertHall> favoriteConcertHalls = new List<FavoriteConcertHall>();
             favoriteConcertHalls = getFavoriteConcertHallFromList(dataConcertHalls);
             return (favoriteConcertHalls);
+        }
+        private dynamic getUserHistoBooksCountPerYer(string userid)
+        {
+            var dataHistoBooks = context.Books.Where(x => x.UserId == userid).GroupBy(t => new { Year = t.Date.Year })
+                .Select(g => new
+                {
+                    Year = g.Key.Year,
+                    Count = g.Count(),
+                }).OrderBy(x => x.Year).ToList();
+            return dataHistoBooks;
+        }
+        public HistoMedia GetUserHistoBooksCountPerYer (string userId)
+        {
+            var dataHistoBooks = getUserHistoBooksCountPerYer(userId);
+            HistoMedia histoBooks = new HistoMedia();
+            foreach (var item in dataHistoBooks) 
+            {
+                histoBooks.Year.Add((item.Year).ToString());
+                histoBooks.Count.Add(item.Count);
+            }
+            return histoBooks;
+        }
+        private dynamic getUserHistoMoviesCountPerYer(string userid)
+        {
+            var dataHistoMovies = context.Movies.Where(x => x.UserId == userid).GroupBy(t => new { Year = t.Date.Year })
+                .Select(g => new
+                {
+                    Year = g.Key.Year,
+                    Count = g.Count(),
+                }).OrderBy(x => x.Year).ToList();
+            return dataHistoMovies;
+        }
+        public HistoMedia GetUserHistoMoviesCountPerYer(string userId)
+        {
+            var dataHistoMovies = getUserHistoMoviesCountPerYer(userId);
+            HistoMedia histoMovies = new HistoMedia();
+            foreach (var item in dataHistoMovies)
+            {
+                histoMovies.Year.Add((item.Year).ToString());
+                histoMovies.Count.Add(item.Count);
+            }
+            return histoMovies;
+        }
+        private dynamic getUserHistoConcertsCountPerYer(string userid)
+        {
+            var dataHistoConcerts = context.Concerts.Where(x => x.UserId == userid).GroupBy(t => new { Year = t.Date.Year })
+                .Select(g => new
+                {
+                    Year = g.Key.Year,
+                    Count = g.Count(),
+                }).OrderBy(x => x.Year).ToList();
+            return dataHistoConcerts;
+        }
+        public HistoMedia GetUserHistoConcertsCountPerYer(string userId)
+        {
+            var dataHistoConcerts = getUserHistoConcertsCountPerYer(userId);
+            HistoMedia histoConcerts = new HistoMedia();
+            foreach (var item in dataHistoConcerts)
+            {
+                histoConcerts.Year.Add((item.Year).ToString());
+                histoConcerts.Count.Add(item.Count);
+            }
+            return histoConcerts;
         }
         public void Dispose()
         {

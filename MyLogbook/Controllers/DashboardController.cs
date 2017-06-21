@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.ComponentModel.DataAnnotations;
 using MyLogbook.ViewModels;
+using Newtonsoft.Json;
 
 
 namespace MyLogbook.Controllers
@@ -25,6 +26,32 @@ namespace MyLogbook.Controllers
                 BestDirectors = dal.GetBestDirectors(userId),
                 BestConcertHall = dal.GetFavoriteConcertHalls(userId)
             };
+
+            HistoMedia histoBooks = new HistoMedia();
+            histoBooks = dal.GetUserHistoBooksCountPerYer(userId);
+
+            HistoMedia histoMovies = new HistoMedia();
+            histoMovies = dal.GetUserHistoMoviesCountPerYer(userId);
+
+            HistoMedia histoConcerts = new HistoMedia();
+            histoConcerts = dal.GetUserHistoConcertsCountPerYer(userId);
+
+            List<String> yearListBooks = histoBooks.Year;
+            List<int> countListBooks = histoBooks.Count;
+            List<String> yearListMovies = histoMovies.Year;
+            List<int> countListMovies = histoMovies.Count;
+            List<String> yearListConcerts = histoConcerts.Year;
+            List<int> countListConcerts = histoConcerts.Count;
+
+            ViewBag.YearListBooks = JsonConvert.SerializeObject(yearListBooks);
+            ViewBag.CountListBooks = JsonConvert.SerializeObject(countListBooks);
+
+            ViewBag.YearListMovies = JsonConvert.SerializeObject(yearListMovies);
+            ViewBag.CountListMovies = JsonConvert.SerializeObject(countListMovies);
+
+            ViewBag.YearListConcerts = JsonConvert.SerializeObject(yearListConcerts);
+            ViewBag.CountListConcerts = JsonConvert.SerializeObject(countListConcerts);
+
             return View(vm);
         }
         public ActionResult DrawGraphBook()
