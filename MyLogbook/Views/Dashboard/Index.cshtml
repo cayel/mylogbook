@@ -5,38 +5,68 @@
 
 <h2>Tableau de bord</h2>
 <br />
-<div class="row">
-    <div class="col-md-4">
-        @Html.Partial("BestWriters", Model)
-    </div>
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-6">
-        @Html.Partial("BooksChart", Model)
-    </div>
-</div>
-<br />
-<div class="row">
-    <div class="col-md-6">
-        @Html.Partial("MoviesChart", Model)
-    </div>
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-4">
-        @Html.Partial("BestDirectors", Model)
-    </div>
-</div>
 
-<br />
-<div class="row">
-    <div class="col-md-4">
-        @Html.Partial("FavoriteConcertHalls", Model)
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Livres</a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="col-md-4">
+                    @Html.Partial("BestWriters", Model)
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-6">
+                    @Html.Partial("BooksChart", Model)
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div class="col-md-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Films</a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-md-6">
+                    @Html.Partial("BestDirectors", Model)
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-4">
+                    @Html.Partial("MoviesChart", Model)
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-        @Html.Partial("ConcertsChart", Model)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Concerts</a>
+            </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-md-4">
+                    @Html.Partial("FavoriteConcertHalls", Model)
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-6">
+                    @Html.Partial("ConcertsChart", Model)
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<br />
+</div> 
+
+
 
