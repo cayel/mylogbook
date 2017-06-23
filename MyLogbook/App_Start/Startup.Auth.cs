@@ -54,9 +54,9 @@ namespace MyLogbook
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1869094033411988",
+               appSecret: "406099ba0266e330fe2a45e7557f32f0");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
