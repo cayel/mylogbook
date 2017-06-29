@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201706161153338_TvShows-Season.Designer.cs">
       <DependentUpon>201706161153338_TvShows-Season.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706291029125_Comic-serie.cs" />
+    <Compile Include="Migrations\201706291029125_Comic-serie.Designer.cs">
+      <DependentUpon>201706291029125_Comic-serie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comic.cs" />
@@ -416,6 +420,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706161153338_TvShows-Season.resx">
       <DependentUpon>201706161153338_TvShows-Season.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706291029125_Comic-serie.resx">
+      <DependentUpon>201706291029125_Comic-serie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

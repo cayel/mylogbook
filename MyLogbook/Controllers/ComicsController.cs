@@ -37,7 +37,9 @@ namespace MyLogbook.Controllers
             IEnumerable<Comic> comics = new List<Comic>();
 
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_asc" : "";
+            ViewBag.SerieSortParm = sortOrder == "Serie" ? "serie_desc" : "Serie";
             ViewBag.TitleSortParm = sortOrder == "Title" ? "title_desc" : "Title";
+            ViewBag.VolumeSortParm = sortOrder == "Volume" ? "volume_desc" : "Volume";
             ViewBag.ScenaristSortParm = sortOrder == "Scenarist" ? "scenarist_desc" : "Scenarist";
             ViewBag.CartoonistSortParm = sortOrder == "Cartoonist" ? "cartoonist_desc" : "Cartoonist";
             ViewBag.RatingSortParm = sortOrder == "Rating" ? "rating_asc" : "Rating";
@@ -48,16 +50,28 @@ namespace MyLogbook.Controllers
                 if (!String.IsNullOrEmpty(searchBd))
                 {
                     string searchBdLower = searchBd.ToLower();
-                    comics = comics.Where(s => s.Title.ToLower().Contains(searchBdLower) || (!string.IsNullOrEmpty(s.Scenarist) && s.Scenarist.ToLower().Contains(searchBdLower)) 
+                    comics = comics.Where(s => s.Serie.ToLower().Contains(searchBdLower) || s.Title.ToLower().Contains(searchBdLower) || (!string.IsNullOrEmpty(s.Scenarist) && s.Scenarist.ToLower().Contains(searchBdLower)) 
                             || (!string.IsNullOrEmpty(s.Cartoonist) && s.Cartoonist.ToLower().Contains(searchBdLower)));
                 }
                 switch (sortOrder)
                 {
+                    case "serie_desc":
+                        comics = comics.OrderByDescending(s => s.Serie);
+                        break;
+                    case "Serie":
+                        comics = comics.OrderBy(s => s.Serie);
+                        break;
                     case "title_desc":
                         comics = comics.OrderByDescending(s => s.Title);
                         break;
                     case "Title":
                         comics = comics.OrderBy(s => s.Title);
+                        break;
+                    case "volume_desc":
+                        comics = comics.OrderByDescending(s => s.Volume);
+                        break;
+                    case "Volume":
+                        comics = comics.OrderBy(s => s.Volume);
                         break;
                     case "scenarist_desc":
                         comics = comics.OrderByDescending(s => s.Scenarist);
@@ -120,7 +134,7 @@ namespace MyLogbook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Scenarist,Cartoonist,Date,Rating,UserId")] Comic comic)
+        public ActionResult Create([Bind(Include = "Id,Serie,Title,Volume,Scenarist,Cartoonist,Date,Rating,UserId")] Comic comic)
         {
             if (ModelState.IsValid)
             {
@@ -154,7 +168,7 @@ namespace MyLogbook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Scenarist,Cartoonist,Date,Rating,UserId")] Comic comic)
+        public ActionResult Edit([Bind(Include = "Id,Serie,Title,Volume,Scenarist,Cartoonist,Date,Rating,UserId")] Comic comic)
         {
             if (ModelState.IsValid)
             {

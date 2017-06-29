@@ -10,6 +10,9 @@ namespace MyLogbook.Models
     {
         public int Id { get; set; }
         [Required]
+        public string Serie { get; set; }
+        public string Volume { get; set; }
+        [Required]
         [Display(Name = "Titre")]
         public string Title { get; set; }
         [Display(Name = "Scénariste")]

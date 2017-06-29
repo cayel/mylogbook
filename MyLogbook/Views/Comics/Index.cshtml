@@ -30,7 +30,13 @@
 <table class="table">
     <tr>
         <th>
+            @Html.ActionLink("Série", "Index", new { sortOrder = ViewBag.SerieSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
             @Html.ActionLink("Titre", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Volume", "Index", new { sortOrder = ViewBag.VolumeSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.ActionLink("Scénariste", "Index", new { sortOrder = ViewBag.ScenaristSortParm, currentFilter = ViewBag.CurrentFilter })
@@ -51,7 +57,13 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Serie)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Volume)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Scenarist)
